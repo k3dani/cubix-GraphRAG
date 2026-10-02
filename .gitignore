@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.ruff_cache/
+qdrant_data/
+neo4j_data/
+# lokális, nem publikálható anyagok (pl. valós adatból számolt kimenetek)
+private/

@@ -1,0 +1,34 @@
+[project]
+name = "graphrag-course"
+version = "0.1.0"
+description = "GraphRAG kurzusprojekt szintetikus magyar cégadat-korpuszon, saját (ingyenes) modellekkel"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "langchain-community>=0.4.2",
+    "langchain-core>=1.5.0",
+    "langchain-openai>=1.4.1",
+    "langchain-qdrant>=1.1.0",
+    "langchain-text-splitters>=1.1.2",
+    "python-dotenv>=1.2.2",
+    "qdrant-client>=1.18.0",
+]
+
+[project.scripts]
+ingest = "graphrag_course.ingest:main"
+ask = "graphrag_course.rag:main"
+baseline = "graphrag_course.baseline:main"
+
+[build-system]
+requires = ["uv_build>=0.10.0,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = ["ruff>=0.15.0"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "UP", "B", "SIM"]
