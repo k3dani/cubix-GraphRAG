@@ -5,3 +5,29 @@ services:
       - "127.0.0.1:6333:6333"
     volumes:
       - "./qdrant_data:/qdrant/storage"
+
+  neo4j:
+    # Community: ingyenes, egy felhasználói adatbázis (neo4j); a 4. héten jön hozzá a GDS plugin
+    image: neo4j:2026.09.0-community
+    ports:
+      - "127.0.0.1:7474:7474" # Neo4j Browser
+      - "127.0.0.1:7687:7687" # Bolt (Python-driver)
+    environment:
+      # a jelszó a .env-ből jön (a compose is onnan olvassa); legalább 8 karakter
+      NEO4J_AUTH: "neo4j/${NEO4J_PASSWORD:-graphrag-course}"
+      # laptopbarát memória; a korpusz néhány ezer csomópont
+      NEO4J_server_memory_heap_initial__size: 512m
+      NEO4J_server_memory_heap_max__size: 1g
+      NEO4J_server_memory_pagecache_size: 512m
+    volumes:
+      # named volume: a bind mount a neo4j uid-jára (7474) chownolná a host-könyvtárat
+      - "neo4j_data:/data"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:7474"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 10s
+
+volumes:
+  neo4j_data:

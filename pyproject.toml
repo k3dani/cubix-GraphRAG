@@ -10,6 +10,7 @@ dependencies = [
     "langchain-openai>=1.4.1",
     "langchain-qdrant>=1.1.0",
     "langchain-text-splitters>=1.1.2",
+    "neo4j>=6.4.0",
     "python-dotenv>=1.2.2",
     "qdrant-client>=1.18.0",
 ]
@@ -18,6 +19,9 @@ dependencies = [
 ingest = "graphrag_course.ingest:main"
 ask = "graphrag_course.rag:main"
 baseline = "graphrag_course.baseline:main"
+load-docs = "graphrag_course.doc_graph:main"
+load-seed = "graphrag_course.seed:main"
+graph-queries = "graphrag_course.cypher_runner:main"
 
 [build-system]
 requires = ["uv_build>=0.10.0,<0.13.0"]

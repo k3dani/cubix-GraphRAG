@@ -54,7 +54,9 @@ def split_documents(docs: list[Document]) -> list[Document]:
         for i, chunk in enumerate(splitter.split_documents([doc])):
             meta = chunk.metadata
             start = meta["start_index"]
-            meta["section"] = section_span(doc.page_content, start, start + len(chunk.page_content))
+            # a nyers chunk helye a dokumentumban (a gráf ebből számolja a szakasz-átfedést)
+            meta["end_index"] = start + len(chunk.page_content)
+            meta["section"] = section_span(doc.page_content, start, meta["end_index"])
             meta["chunk_id"] = f"{meta['doc_id']}#{i:02d}"
             # a cím minden chunkba bekerül, különben egy „## Tagok” szakaszról nem derülne ki,
             # melyik cégről szól
